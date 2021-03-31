@@ -3,16 +3,30 @@
  */
 package ToDoLogger;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 class AppTest {
-    @Test void getFileTest() throws IOException{
-        App loggerTest = new App();
+
+    @BeforeEach public void startTest(TestInfo testInfo) {
+        System.out.printf("Starting %s: \n", testInfo.getDisplayName());
+    }
+
+    @Test 
+    void getFileTest() throws IOException{
+        Log loggerTest = new Log();
         assertEquals(loggerTest.getFile(), "Log.txt");
     }
 
-
+    @Test void readFileTest() throws FileNotFoundException, IOException{
+        Log loggerTest = new Log();
+        loggerTest.readFile("Log.txt");
+    }
 }

@@ -2,6 +2,7 @@
 .gradle
 .settings
 .project
+Log.txt
 
 # Ignore Gradle build output directory
 build
