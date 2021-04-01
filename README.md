@@ -9,6 +9,7 @@ A simple command-line tool to log your To Do tasks.
 - [] Save and pull data from a SQL database
     - [] Pull data from SQL database and save to file
     - [] Save data to SQL database (data can be from user input or from a file)
+- [] Add optional field to specify the type of the task
 
 ## Possible Future Features
 - [] Setup a GUI or web based GUI
