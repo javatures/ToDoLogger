@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Log {
     //Expected content: [ date, task ]
-    private List<String[]> contents = new ArrayList<String[]>();
+    private ArrayList<String[]> contents = new ArrayList<String[]>();
 
     public String getFile() throws FileNotFoundException, IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -30,6 +30,8 @@ public class Log {
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
         String line;
         String[] data;
+        boolean validDate;
+        Operations ops = new Operations();
 
         while ((line = reader.readLine()) != null){
             if (line.length() == 0){
@@ -37,7 +39,8 @@ public class Log {
             }
             // System.out.println(line);
             data = line.split(" ", 2);
-            storeContents(data);
+            validDate = ops.checkDate(data[0]);
+            if(validDate) storeContents(data);
         }
         reader.close();
         

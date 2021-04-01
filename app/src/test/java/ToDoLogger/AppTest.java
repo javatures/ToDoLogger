@@ -15,7 +15,8 @@ import java.io.IOException;
 
 class AppTest {
 
-    @BeforeEach public void startTest(TestInfo testInfo) {
+    @BeforeEach 
+    public void startTest(TestInfo testInfo) {
         System.out.printf("Starting %s: \n", testInfo.getDisplayName());
     }
 
@@ -25,8 +26,15 @@ class AppTest {
         assertEquals(loggerTest.getFile(), "Log.txt");
     }
 
-    @Test void readFileTest() throws FileNotFoundException, IOException{
+    @Test 
+    void readFileTest() throws FileNotFoundException, IOException{
         Log loggerTest = new Log();
         loggerTest.readFile("Log.txt");
+    }
+
+    @Test
+    void checkDateTest() {
+        Operations ops = new Operations();
+        assertTrue(ops.checkDate("12/23/2020"));
     }
 }
