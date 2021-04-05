@@ -3,6 +3,7 @@
 .settings
 .project
 app/Log.txt
+app/file.csv
 
 # Ignore Gradle build output directory
 build
