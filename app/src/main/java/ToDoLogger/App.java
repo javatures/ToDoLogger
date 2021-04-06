@@ -2,11 +2,9 @@ package ToDoLogger;
 
 public class App {
     public static void main(String[] args) {
-        Log logger = new Log();
-        // Sql sql = new Sql();
+        Log logger = new Log(); 
         System.out.println("Welcome to To Do Logger");
-        System.out.println("Please enter the name of your To Do Log (Press enter for default name Log.txt):");
+        System.out.println("Please enter the name of your To Do Log:");
         logger.runLogger();
-        // sql.runSql();
     }
 }

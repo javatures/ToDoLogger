@@ -8,11 +8,8 @@ import java.util.Locale;
 
 abstract class Operations {
 
-    abstract void exitLogger();
-
     //Checks that the date is valid
     /**
-     * Bugs: Does not work properly for leap year
      * @param dateData
      * @return boolean
     */

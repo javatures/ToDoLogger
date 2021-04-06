@@ -7,7 +7,18 @@ import java.sql.Statement;
 
 public class Sql {
 
+    private boolean upload = false;
+
+    public void changeUpload() {
+        this.upload = !this.upload;
+    }
+
+    public boolean getUpload(){
+        return this.upload;
+    }
+
     public void runSql (){
+        // TRUE: FILE   FALSE: DB
         String url = "jdbc:postgresql://localhost:5432/postgres";
         String username = "postgres";
         String password = "password123";
@@ -26,7 +37,7 @@ public class Sql {
     
             }
         } catch (Exception e) {
-            //TODO: handle exception
+            System.out.println(e.getLocalizedMessage());
             e.printStackTrace();
         }
     }
