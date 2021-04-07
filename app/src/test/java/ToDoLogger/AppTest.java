@@ -26,11 +26,11 @@ class AppTest {
     @Test
     void checkDateTest() {
         Log loggerTest = new Log();
-        // assertTrue(loggerTest.checkDate("12/23/2020"));
-        // assertTrue(loggerTest.checkDate("4/1/2021"));
-        // assertTrue(loggerTest.checkDate("2/29/2021"));
-        // assertTrue(loggerTest.checkDate("02/29/2020"));
-        // assertTrue(loggerTest.checkDate("02/29/2016"));
+        assertFalse(loggerTest.checkDate("12/23/2020"));
+        assertFalse(loggerTest.checkDate("4/1/2021"));
+        assertFalse(loggerTest.checkDate("2/29/2021"));
+        assertFalse(loggerTest.checkDate("02/29/2020"));
+        assertFalse(loggerTest.checkDate("02/29/2016"));
         assertTrue(loggerTest.checkDate("2021-04-04"));
     }
 }

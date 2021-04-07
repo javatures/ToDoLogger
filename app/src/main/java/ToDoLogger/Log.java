@@ -6,101 +6,93 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Log extends Operations{
-    //Expected content: [ date, type, task ]
-    private List<String[]> writeContents = new ArrayList<String[]>();
-    private List<String[]> uploadContents = new ArrayList<String[]>();
+public class Log extends Operations {
+
+    public void blowUp (){
+        System.out.println("          _ ._  _ , _ ._");
+        System.out.println("        (_ ' ( `  )_  .__)");
+        System.out.println("      ( (  (    )   `)  ) _)");
+        System.out.println("     (__ (_   (_ . _) _) ,__)");
+        System.out.println("         `~~`\\ ' . /`~~`");
+        System.out.println("              ;   ;");
+        System.out.println("              /   \\");
+        System.out.println("_____________/_ __ \\_____________");
+        System.exit(0);
+    }
 
     public String getFile(String input) throws FileNotFoundException, IOException {
         File file = new File(input);
-        if (file.createNewFile()){
+        if (file.createNewFile()) {
             System.out.println("File does not exist. Creating new file..... ");
         }
         return input;
     }
-    
-    public void readFile(String fileName) throws FileNotFoundException, IOException {
+
+    public List<String[]> readFile(String fileName) throws FileNotFoundException, IOException {
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        List<String[]> uploadContents = new ArrayList<String[]>();
         String line;
         String[] data;
         boolean validDate;
         System.out.println("Reading File.....");
-        
-        while ((line = reader.readLine()) != null){
-            if (line.length() == 0){
+
+        while ((line = reader.readLine()) != null) {
+            if (line.length() == 0) {
                 continue;
             }
-            // System.out.println(line);
             data = line.split("\\|", 3);
             validDate = checkDate(data[0]);
-            if(validDate) {
-                storeContents(this.uploadContents, data);
-                // System.out.println(line);
+            if (validDate) {
+                uploadContents.add(data);
             }
         }
         reader.close();
-    }
-    
-    public void storeContents(List<String[]> contents,String[] data) {
-        contents.add(data);
+        return uploadContents;
     }
 
     public void writeFile(String fileName, BufferedReader reader) throws IOException {
         PrintWriter printWriter = new PrintWriter(new FileWriter(fileName, true));
+        List<String[]> writeContents = new ArrayList<String[]>();
         String input;
-        boolean type = false;
-        System.out.println("Would you like to add a type to the task?(y/n):");
-        input = reader.readLine();
-        if (input.equals("y")) type = true;
+        boolean validDate;
         System.out.println("Please enter the date of the task you want logged:");
         System.out.println("I can only handle dates in this format: yyyy-mm-dd");
-        while ((input = reader.readLine()) != null){
-            String[] content = {" "," "," "};
+        while ((input = reader.readLine()) != null) {
+            String[] content = { "", "", "" };
             content[0] = input;
-            if (type == true){
-                System.out.println("Please enter the task type:");
-                input = reader.readLine();
-                content[1] = input;
-            }
+            System.out.println("Please enter the task type:");
+            input = reader.readLine();
+            content[1] = input;
             System.out.println("Please enter the task:");
             input = reader.readLine();
             content[2] = input;
-            storeContents(this.writeContents, content);
+            writeContents.add(content);
             System.out.println("Would you like to add another task?(y/n):");
             input = reader.readLine();
-            if (input.equals("n")) break;
+            if (input.equals("n"))
+                break;
             System.out.println("Please enter the date of the task you want logged:");
             System.out.println("I can only handle dates in this format: yyyy-mm-dd");
         }
         System.out.println("Writing to file.....");
-        for (String[] element : this.writeContents){
-            printWriter.printf("%s|%s|%s \n", element[0], element[1], element[2]);
+        for (String[] content : writeContents) {
+            validDate = checkDate(content[0]);
+            if (validDate)
+                printWriter.printf("%s|%s|%s \n", content[0], content[1], content[2]);
         }
         printWriter.close();
         System.out.println("Writing complete. Good Bye.");
     }
-    
-    public void runLogger() {
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            Sql sql = new Sql();
-            String fileName = getFile(reader.readLine());
-            String input;
-            System.out.println("Do you want to upload your file to the database?(y/n):");
-            input = reader.readLine();
-            if (input.equals("y")) sql.changeUpload();
-            if (sql.getUpload()) readFile(fileName);
-            writeFile(fileName, reader);
-            reader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("FileNotFoundException");
-        } catch (IOException e) {
-            System.out.println("IOException");
+
+    public void writeFromDatabase (List<String[]> downloadList, String fileName) throws IOException {
+        PrintWriter printWriter = new PrintWriter(new FileWriter(fileName, true));
+        for (String[] content : downloadList) {
+            printWriter.printf("%s|%s|%s \n", content[0], content[1], content[2]);
         }
+        printWriter.close();
     }
 }
